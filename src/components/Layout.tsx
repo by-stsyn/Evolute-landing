@@ -265,7 +265,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="border-t border-white/10 pt-8 text-[11px] text-gray-500 space-y-5">
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
               <a href="/privacy.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">Политика конфиденциальности</a>
-              <a href="/consent.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">Согласие на обработку персональных данных</a>
             </div>
             
             <p className="leading-relaxed">
