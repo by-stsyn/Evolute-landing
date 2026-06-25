@@ -1,34 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* 
   ПОДКЛЮЧЕНИЕ ФИРМЕННЫХ ШРИФТОВ:
-  Просто загрузите файлы ваших шрифтов в папку /public/fonts/
-  с именами BrandSans-Regular.woff2 и BrandSans-Bold.woff2 (или другими форматами woff/ttf).
-  Сайт автоматически переключится на них! Если файлов нет — сайт использует красивый Inter.
+  Пользователь загрузит шрифты Montserrat в папку /fonts/
 */
 @font-face {
-  font-family: 'BrandSans';
-  src: url('/fonts/BrandSans-Regular.woff2') format('woff2'),
-       url('/fonts/BrandSans-Regular.woff') format('woff'),
-       url('/fonts/BrandSans-Regular.ttf') format('truetype');
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'BrandSans';
-  src: url('/fonts/BrandSans-Bold.woff2') format('woff2'),
-       url('/fonts/BrandSans-Bold.woff') format('woff'),
-       url('/fonts/BrandSans-Bold.ttf') format('truetype');
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: "BrandSans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-evolute-blue: #12365e;
   --color-evolute-blue-light: #4495d1;
   --color-evolute-blue-glow: rgba(18, 54, 94, 0.5);

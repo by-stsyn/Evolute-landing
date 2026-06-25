@@ -168,9 +168,12 @@ export const TradeIn: React.FC = () => {
               >
                 Получить оценку
               </button>
-              <p className="text-[10px] text-gray-500 text-center mt-2">
-                Отправляя данные, вы соглашаетесь с <a href="/privacy.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">политикой конфиденциальности</a> и <a href="/consent.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">согласием на обработку персональных данных</a>.
-              </p>
+              <label className="flex items-start gap-2 mt-2 cursor-pointer">
+                <input type="checkbox" required className="mt-0.5" />
+                <span className="text-[10px] text-gray-400 text-left">
+                  Я даю согласие группе компаний «Прагматика» на обработку <a href="/privacy.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">персональных данных</a>.
+                </span>
+              </label>
             </motion.form>
           ) : (
             <motion.div

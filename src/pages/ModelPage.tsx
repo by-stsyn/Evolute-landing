@@ -11,6 +11,7 @@ export const ModelPage: React.FC = () => {
   const { modelId } = useParams();
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [activeConfigIndex, setActiveConfigIndex] = useState(0);
+  const [showDifferences, setShowDifferences] = useState(false);
 
   // Scroll to top on load
   useEffect(() => {
@@ -71,7 +72,7 @@ export const ModelPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-12">
             <div>
-               <h3 className="text-xl font-bold text-evolute-blue mb-4">{model.interior.title}</h3>
+               <h3 className="text-xl font-bold text-white mb-4">{model.interior.title}</h3>
                <p className="text-gray-300 text-sm mb-6 leading-relaxed">
                  {model.interior.description}
                </p>
@@ -94,6 +95,62 @@ export const ModelPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Economy Section */}
+      {model.economy && (
+        <section className="pt-16 md:pt-24 bg-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-normal text-center">
+              {model.economy.title}
+            </h2>
+          </div>
+          
+          <div className="bg-[#465463] text-white">
+            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch">
+              {/* Text Content */}
+              <div className="flex-[1.2] py-12 px-4 sm:px-6 lg:pl-8 lg:pr-16 lg:py-20">
+                <div className="space-y-10 max-w-2xl">
+                  {model.economy.blocks.map((block, idx) => (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1 }}
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-2"></div>
+                        <h3 className="text-[15px] font-bold text-white leading-tight">{block.title}</h3>
+                      </div>
+                      <p className="text-white/90 whitespace-pre-line text-[13px] leading-relaxed pl-4">{block.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-16 space-y-4 pl-4">
+                  {model.economy.footnotes.map((note, idx) => (
+                    <p key={idx} className="text-[11px] text-white/60 leading-relaxed">{note}</p>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Image Content */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="flex-[1.8] relative min-h-[400px] lg:min-h-[600px]"
+              >
+                <img 
+                  src={model.economy.image} 
+                  alt={model.economy.title} 
+                  className="absolute inset-0 w-full h-full object-cover lg:py-8 pr-4 sm:pr-6 lg:pr-8"
+                />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Test Drive Section (Lead Magnet) */}
       <TestDrive preselectedModel={model.name} />
 
@@ -107,23 +164,37 @@ export const ModelPage: React.FC = () => {
         {/* Fake Tabs / Configurations */}
         {model.configurations && model.configurations.length > 0 ? (
           <>
-            <div className="border-b border-gray-200 mb-6 flex overflow-x-auto space-x-2">
-              {model.configurations.map((config, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setActiveConfigIndex(idx);
-                    setOpenAccordion(0);
-                  }}
-                  className={`px-6 py-3 border-b-2 text-sm font-medium whitespace-nowrap transition-colors ${
-                    activeConfigIndex === idx
-                      ? 'border-evolute-blue text-evolute-blue'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  {config.name}
-                </button>
-              ))}
+            <div className="border-b border-gray-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex overflow-x-auto space-x-2">
+                {model.configurations.map((config, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setActiveConfigIndex(idx);
+                      setOpenAccordion(0);
+                    }}
+                    className={`px-6 py-3 border-b-2 text-sm font-medium whitespace-nowrap transition-colors ${
+                      activeConfigIndex === idx
+                        ? 'border-evolute-blue text-evolute-blue'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    {config.name}
+                  </button>
+                ))}
+              </div>
+              
+              {model.configurations.length > 1 && (
+                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600 px-2 md:px-0">
+                  <input 
+                    type="checkbox" 
+                    className="accent-evolute-blue w-4 h-4"
+                    checked={showDifferences}
+                    onChange={(e) => setShowDifferences(e.target.checked)}
+                  />
+                  Показать различия
+                </label>
+              )}
             </div>
             
             <div className="mb-6">
@@ -143,43 +214,60 @@ export const ModelPage: React.FC = () => {
 
         {/* Accordions */}
         <div className="space-y-2 max-w-5xl">
-          {(model.configurations ? model.configurations[activeConfigIndex].equipment : model.equipment || []).map((category, idx) => (
-             <div key={idx} className="border border-gray-100 bg-gray-50 rounded">
-               <button 
-                 onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
-                 className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none"
-               >
-                 <span className="font-medium text-sm text-evolute-dark">{category.title}</span>
-                 <motion.div
-                   animate={{ rotate: openAccordion === idx ? 180 : 0 }}
-                   transition={{ duration: 0.2 }}
+          {(model.configurations ? model.configurations[activeConfigIndex].equipment : model.equipment || []).map((category, idx) => {
+             // Filter logic for differences
+             let visibleItems = category.items;
+             if (showDifferences && model.configurations && model.configurations.length > 1) {
+                visibleItems = category.items.filter(item => {
+                   // Check if this exact item exists in ALL other configurations in the same category
+                   const existsInAll = model.configurations!.every(config => {
+                      const sameCategory = config.equipment.find(c => c.title === category.title);
+                      return sameCategory && sameCategory.items.includes(item);
+                   });
+                   return !existsInAll;
+                });
+             }
+
+             if (visibleItems.length === 0) return null;
+
+             return (
+               <div key={idx} className="border border-gray-100 bg-gray-50 rounded">
+                 <button 
+                   onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
+                   className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none"
                  >
-                   <ChevronDown size={20} className="text-gray-500" />
-                 </motion.div>
-               </button>
-               <AnimatePresence>
-                 {openAccordion === idx && (
+                   <span className="font-medium text-sm text-evolute-dark">{category.title}</span>
                    <motion.div
-                     initial={{ height: 0, opacity: 0 }}
-                     animate={{ height: 'auto', opacity: 1 }}
-                     exit={{ height: 0, opacity: 0 }}
-                     className="overflow-hidden"
+                     animate={{ rotate: openAccordion === idx ? 180 : 0 }}
+                     transition={{ duration: 0.2 }}
                    >
-                     <div className="px-6 pb-6 pt-2">
-                       <ul className="space-y-3">
-                         {category.items.map((item, itemIdx) => (
-                           <li key={itemIdx} className="text-sm text-gray-600 flex items-start gap-3">
-                             <div className="w-1.5 h-1.5 rounded-full bg-gray-300 shrink-0 mt-1.5"></div>
-                             {item}
-                           </li>
-                         ))}
-                       </ul>
-                     </div>
+                     <ChevronDown size={20} className="text-gray-500" />
                    </motion.div>
-                 )}
-               </AnimatePresence>
-             </div>
-          ))}
+                 </button>
+                 <AnimatePresence>
+                   {openAccordion === idx && (
+                     <motion.div
+                       initial={{ height: 0, opacity: 0 }}
+                       animate={{ height: 'auto', opacity: 1 }}
+                       exit={{ height: 0, opacity: 0 }}
+                       className="overflow-hidden"
+                     >
+                       <div className="px-6 pb-6 pt-2">
+                         <ul className="space-y-3">
+                           {visibleItems.map((item, itemIdx) => (
+                             <li key={itemIdx} className="text-sm text-gray-600 flex items-start gap-3">
+                               <div className="w-1.5 h-1.5 rounded-full bg-gray-300 shrink-0 mt-1.5"></div>
+                               {item}
+                             </li>
+                           ))}
+                         </ul>
+                       </div>
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+               </div>
+             );
+          })}
         </div>
       </section>
 

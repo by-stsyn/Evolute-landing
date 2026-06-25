@@ -267,9 +267,12 @@ export const CarSelector: React.FC = () => {
                         <ArrowRight size={18} strokeWidth={1.5} />
                       </button>
                     </div>
-                    <p className="text-xs text-gray-400 mt-6 text-center max-w-xs mx-auto">
-                      Нажимая кнопку, вы даете <a href="/consent.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">согласие на обработку персональных данных</a> и соглашаетесь с <a href="/privacy.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">политикой конфиденциальности</a>.
-                    </p>
+                    <label className="flex items-start gap-2 mt-6 cursor-pointer max-w-xs mx-auto">
+                      <input type="checkbox" required className="mt-0.5" />
+                      <span className="text-[10px] text-gray-500 text-left">
+                        Я даю согласие группе компаний «Прагматика» на обработку <a href="/privacy.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">персональных данных</a>.
+                      </span>
+                    </label>
                   </form>
                 </motion.div>
               ) : (
