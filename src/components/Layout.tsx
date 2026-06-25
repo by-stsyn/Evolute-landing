@@ -248,7 +248,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li><a href="/#in-stock" className="hover:text-evolute-blue transition-colors">Автомобили в наличии</a></li>
                 <li><a href="/#quiz" className="hover:text-evolute-blue transition-colors">Подбор авто</a></li>
                 <li><a href="/#calculator" className="hover:text-evolute-blue transition-colors">Кредит</a></li>
-                <li><a href="/#calculator" className="hover:text-evolute-blue transition-colors">Трейд-ин</a></li>
+                <li><a href="/#trade-in" className="hover:text-evolute-blue transition-colors">Трейд-ин</a></li>
                 <li><a href="/#test-drive" className="hover:text-evolute-blue transition-colors">Тест-драйв</a></li>
               </ul>
             </div>
