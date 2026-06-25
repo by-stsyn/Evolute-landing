@@ -26,7 +26,7 @@ export const Advantages: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="flex flex-col items-center text-center mb-16">
-          <img src="/pragmatika-logo.svg" alt="Прагматика" className="h-16 w-auto object-contain mb-8 filter brightness-0 opacity-80" />
+          <img src="/pragmatika-logo.png" alt="Прагматика" className="h-16 w-auto object-contain mb-8 filter brightness-0 opacity-80" />
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
