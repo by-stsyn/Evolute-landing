@@ -1,17 +1,21 @@
-export type CarModel = 'i-PRO' | 'i-SPACE' | 'i-SPACE 4x4' | 'i-JOY' | 'i-JET' | 'i-SKY';
+export type CarModel = 'i-PRO' | 'i-SPACE' | 'i-SPACE 4x4' | 'i-JOY' | 'i-JET' | 'i-SKY' | string;
 
 export interface Car {
   id: string;
-  name: CarModel;
-  type: string; // e.g., 'Городской кроссовер', 'Спортивный премиум SUV'
+  name: string;
+  type: string;
   price: string;
-  range: number; // in km (WLTP/NEDC)
-  power: number; // in hp
-  acceleration?: string; // 0-100 km/h in seconds
-  engineType?: string; // e.g. 'Электромобиль', 'Гибрид'
-  driveType?: string; // e.g. 'Передний', 'Полный', 'Задний'
+  range?: string;
+  power?: string;
+  acceleration?: string;
+  engineType?: string;
+  driveType?: string;
   image: string;
   features: string[];
+  statsItems?: {
+    value: string;
+    label: string;
+  }[];
 }
 
 export interface Lead {

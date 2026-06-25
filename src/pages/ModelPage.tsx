@@ -30,10 +30,34 @@ export const ModelPage: React.FC = () => {
       
       {/* Overview Section */}
       <section className="pt-16 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Обзор {model.title}</h1>
-        <p className="text-gray-500 text-sm md:text-base max-w-4xl leading-relaxed">
+        <div className="flex items-center gap-4 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold">Обзор</h1>
+          {model.logo ? (
+            <img src={model.logo} alt={model.title} className="h-6 md:h-8 object-contain mt-1" />
+          ) : (
+            <h1 className="text-3xl md:text-4xl font-bold">{model.title}</h1>
+          )}
+        </div>
+        <p className="text-gray-500 text-sm md:text-base max-w-4xl leading-relaxed mb-10">
           {model.description}
         </p>
+
+        {model.statsItems && model.statsItems.length > 0 && (
+          <div className="bg-gray-50 rounded-xl p-8 lg:p-12">
+            <div className="flex flex-wrap md:flex-nowrap justify-between gap-6 overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
+              {model.statsItems.map((stat, idx) => (
+                <div key={idx} className="flex-shrink-0 text-center md:flex-1 md:border-r border-gray-200 last:border-r-0 px-2">
+                  <div className="text-2xl lg:text-3xl font-medium text-evolute-dark mb-1 whitespace-nowrap">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs lg:text-sm text-gray-500 uppercase tracking-wide">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Exterior & Interior Title */}
@@ -51,14 +75,14 @@ export const ModelPage: React.FC = () => {
              />
           </div>
           <div className="order-1 lg:order-2">
-             <h3 className="text-xl font-bold text-evolute-blue mb-4">{model.exterior.title}</h3>
+             <h3 className="text-xl font-bold text-evolute-dark mb-4">{model.exterior.title}</h3>
              <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                {model.exterior.description}
              </p>
              <ul className="space-y-3">
                {model.exterior.features.map((feature, idx) => (
                  <li key={idx} className="flex items-start gap-3 text-sm text-gray-700">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0 mt-1.5"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-evolute-blue shrink-0 mt-1.5"></div>
                     <span>{feature}</span>
                  </li>
                ))}
@@ -68,18 +92,18 @@ export const ModelPage: React.FC = () => {
       </section>
 
       {/* Interior Block */}
-      <section className="bg-[#333333] text-white">
+      <section className="bg-evolute-dark text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-12">
             <div>
                <h3 className="text-xl font-bold text-white mb-4">{model.interior.title}</h3>
-               <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+               <p className="text-white/80 text-sm mb-6 leading-relaxed">
                  {model.interior.description}
                </p>
                <ul className="space-y-3">
                  {model.interior.features.map((feature, idx) => (
-                   <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0 mt-1.5"></div>
+                   <li key={idx} className="flex items-start gap-3 text-sm text-white/80">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-1.5"></div>
                       <span>{feature}</span>
                    </li>
                  ))}
@@ -156,12 +180,18 @@ export const ModelPage: React.FC = () => {
 
       {/* Configuration & Prices */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Комплектации и цены {model.title}</h2>
+        <div className="flex items-center gap-4 mb-4 flex-wrap">
+          <h2 className="text-3xl md:text-4xl font-bold">Комплектации и цены</h2>
+          {model.logo ? (
+            <img src={model.logo} alt={model.title} className="h-6 md:h-8 object-contain mt-1" />
+          ) : (
+            <h2 className="text-3xl md:text-4xl font-bold">{model.title}</h2>
+          )}
+        </div>
         <p className="text-gray-500 text-sm mb-8 max-w-4xl">
           Новый {model.name} представлен в отличной комплектации. С ценами вы можете ознакомиться на сайте, по телефону или лично в автосалоне официального дилера.
         </p>
 
-        {/* Fake Tabs / Configurations */}
         {model.configurations && model.configurations.length > 0 ? (
           <>
             <div className="border-b border-gray-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -185,52 +215,161 @@ export const ModelPage: React.FC = () => {
               </div>
               
               {model.configurations.length > 1 && (
-                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600 px-2 md:px-0">
+                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600 px-2 md:px-0 bg-gray-50 py-2 px-4 rounded-full border border-gray-200">
                   <input 
                     type="checkbox" 
                     className="accent-evolute-blue w-4 h-4"
                     checked={showDifferences}
                     onChange={(e) => setShowDifferences(e.target.checked)}
                   />
-                  Показать различия
+                  Сравнить все комплектации
                 </label>
               )}
             </div>
             
-            <div className="mb-6">
-              <span className="text-xl text-evolute-dark font-normal">Цена </span>
-              <span className="text-2xl font-medium text-evolute-dark">
-                {model.configurations[activeConfigIndex].price}
-              </span>
-            </div>
+            {!showDifferences && (
+              <div className="mb-6">
+                <span className="text-xl text-evolute-dark font-normal">Цена </span>
+                <span className="text-2xl font-medium text-evolute-dark">
+                  {model.configurations[activeConfigIndex].price}
+                </span>
+              </div>
+            )}
+
+            {/* Accordions or Table */}
+            {showDifferences && model.configurations.length > 1 ? (
+              <div className="overflow-x-auto pb-4 max-w-7xl mx-auto">
+                <div className="min-w-[800px]">
+                  {/* Header Row */}
+                  <div className="bg-evolute-dark text-white flex items-stretch rounded-t-lg overflow-hidden">
+                    <div className="flex-[2] py-4 px-6 font-medium border-r border-white/10 flex items-center">
+                      <span className="text-lg">Опции</span>
+                    </div>
+                    <div className="flex-[3] flex">
+                      {model.configurations.map((trim, idx) => (
+                        <div key={idx} className="flex-1 py-4 px-6 text-center border-r border-white/10 last:border-0 flex flex-col justify-center">
+                          <div className="font-bold text-lg">{trim.name}</div>
+                          <div className="text-sm text-white/80 mt-1">{trim.price}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Table Body */}
+                  <div className="bg-white border border-gray-200 rounded-b-lg shadow-sm">
+                    {(() => {
+                       // 1. Gather all unique categories across all configs
+                       const allCategories = Array.from(new Set(model.configurations.flatMap(c => c.equipment.map(e => e.title))));
+                       
+                       return allCategories.map((categoryTitle, catIdx) => {
+                          // 2. Gather all unique items for this category
+                          const allItems = Array.from(new Set(
+                             model.configurations.flatMap(c => {
+                                const cat = c.equipment.find(e => e.title === categoryTitle);
+                                return cat ? cat.items : [];
+                             })
+                          ));
+
+                          // 3. Filter items if we only want "differences"
+                          // Wait, the checkbox says "Сравнить все комплектации", so we show everything,
+                          // but maybe highlight differences? Let's just show all for the table,
+                          // or maybe the user wants a strict "Показать различия" toggle?
+                          // Let's add a "Только различия" toggle inside the table view if needed,
+                          // or just filter them out if showDifferences is true.
+                          // Actually, showing the full table is usually best. Let's make the checkbox "Показать различия"
+                          // filter out rows that are identical across ALL trims.
+                          const visibleItems = allItems.filter(item => {
+                             const hasItemInAll = model.configurations!.every(c => {
+                                const cat = c.equipment.find(e => e.title === categoryTitle);
+                                return cat && cat.items.includes(item);
+                             });
+                             return !hasItemInAll; // Only show items that are NOT in all trims
+                          });
+
+                          if (visibleItems.length === 0) return null;
+
+                          return (
+                            <div key={catIdx} className="border-b border-gray-200 last:border-0">
+                              <div className="bg-gray-50 py-3 px-6 border-y border-gray-200 first:border-t-0 flex items-center">
+                                <h3 className="text-sm font-bold text-evolute-dark uppercase tracking-wider">{categoryTitle}</h3>
+                              </div>
+                              <div className="space-y-0">
+                                {visibleItems.map((item, itemIdx) => (
+                                  <div key={itemIdx} className="flex items-stretch hover:bg-blue-50/50 transition-colors border-b border-gray-100 last:border-0">
+                                    <div className="flex-[2] py-4 px-6 text-sm text-gray-700 flex items-center">
+                                      {item}
+                                    </div>
+                                    <div className="flex-[3] flex">
+                                      {model.configurations!.map((config, valIdx) => {
+                                        const hasItem = config.equipment.find(c => c.title === categoryTitle)?.items.includes(item);
+                                        return (
+                                          <div key={valIdx} className="flex-1 py-4 px-6 flex items-center justify-center border-l border-gray-100">
+                                            {hasItem ? (
+                                              <div className="w-6 h-6 rounded-full bg-evolute-blue/10 flex items-center justify-center">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-evolute-blue"></div>
+                                              </div>
+                                            ) : (
+                                              <span className="text-gray-300 font-bold">-</span>
+                                            )}
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                       });
+                    })()}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2 max-w-5xl">
+                {(model.configurations ? model.configurations[activeConfigIndex].equipment : model.equipment || []).map((category, idx) => (
+                   <div key={idx} className="border border-gray-100 bg-gray-50 rounded">
+                     <button 
+                       onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
+                       className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none"
+                     >
+                       <span className="font-medium text-sm text-evolute-dark">{category.title}</span>
+                       <motion.div
+                         animate={{ rotate: openAccordion === idx ? 180 : 0 }}
+                         transition={{ duration: 0.2 }}
+                       >
+                         <ChevronDown size={20} className="text-gray-500" />
+                       </motion.div>
+                     </button>
+                     <AnimatePresence>
+                       {openAccordion === idx && (
+                         <motion.div
+                           initial={{ height: 0, opacity: 0 }}
+                           animate={{ height: 'auto', opacity: 1 }}
+                           exit={{ height: 0, opacity: 0 }}
+                           className="overflow-hidden"
+                         >
+                           <div className="px-6 pb-6 pt-2">
+                             <ul className="space-y-3">
+                               {category.items.map((item, itemIdx) => (
+                                 <li key={itemIdx} className="text-sm text-gray-600 flex items-start gap-3">
+                                   <div className="w-1.5 h-1.5 rounded-full bg-gray-300 shrink-0 mt-1.5"></div>
+                                   {item}
+                                 </li>
+                               ))}
+                             </ul>
+                           </div>
+                         </motion.div>
+                       )}
+                     </AnimatePresence>
+                   </div>
+                ))}
+              </div>
+            )}
           </>
         ) : (
-          <div className="border-b border-gray-200 mb-8 flex">
-            <div className="inline-block px-6 py-3 border-b-2 border-evolute-blue text-evolute-blue text-sm font-medium">
-              {model.name}
-            </div>
-          </div>
-        )}
-
-        {/* Accordions */}
-        <div className="space-y-2 max-w-5xl">
-          {(model.configurations ? model.configurations[activeConfigIndex].equipment : model.equipment || []).map((category, idx) => {
-             // Filter logic for differences
-             let visibleItems = category.items;
-             if (showDifferences && model.configurations && model.configurations.length > 1) {
-                visibleItems = category.items.filter(item => {
-                   // Check if this exact item exists in ALL other configurations in the same category
-                   const existsInAll = model.configurations!.every(config => {
-                      const sameCategory = config.equipment.find(c => c.title === category.title);
-                      return sameCategory && sameCategory.items.includes(item);
-                   });
-                   return !existsInAll;
-                });
-             }
-
-             if (visibleItems.length === 0) return null;
-
-             return (
+          <div className="space-y-2 max-w-5xl">
+            {(model.equipment || []).map((category, idx) => (
                <div key={idx} className="border border-gray-100 bg-gray-50 rounded">
                  <button 
                    onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
@@ -254,7 +393,7 @@ export const ModelPage: React.FC = () => {
                      >
                        <div className="px-6 pb-6 pt-2">
                          <ul className="space-y-3">
-                           {visibleItems.map((item, itemIdx) => (
+                           {category.items.map((item, itemIdx) => (
                              <li key={itemIdx} className="text-sm text-gray-600 flex items-start gap-3">
                                <div className="w-1.5 h-1.5 rounded-full bg-gray-300 shrink-0 mt-1.5"></div>
                                {item}
@@ -266,9 +405,9 @@ export const ModelPage: React.FC = () => {
                    )}
                  </AnimatePresence>
                </div>
-             );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Credit Calculator Section (Lead Magnet) */}

@@ -2,6 +2,7 @@ export interface ModelData {
   id: string;
   name: string;
   title: string;
+  logo?: string;
   description: string;
   heroImage: string;
   stats: {
@@ -10,6 +11,10 @@ export interface ModelData {
     acceleration: string;
     price: string;
   };
+  statsItems?: {
+    value: string;
+    label: string;
+  }[];
   exterior: {
     title: string;
     description: string;
@@ -55,6 +60,7 @@ export const modelsData: Record<string, ModelData> = {
     id: 'i-space',
     name: 'i-SPACE',
     title: 'Evolute i-SPACE',
+    logo: '/ispace-logo.svg',
     description: 'Семиместный электромобиль нового поколения для семьи и повседневных поездок. Модель предлагает трансформируемый салон, силовой модуль с увеличенным запасом хода, расширенный набор ассистентов. Аэродинамичный кузов, панорамная крыша, точная работа климат-системы поддерживают комфорт в любой поездке.',
     heroImage: '/ispace-hero.jpg',
     stats: {
@@ -63,6 +69,15 @@ export const modelsData: Record<string, ModelData> = {
       acceleration: '7.4 сек',
       price: 'от 2 890 000 ₽'
     },
+    statsItems: [
+      { value: '1 250 км', label: 'Запас хода¹' },
+      { value: '165 км', label: 'Запас хода электро¹' },
+      { value: '218 л.с.', label: 'Мощность двигателя' },
+      { value: '330 Н·м', label: 'Крутящий момент' },
+      { value: '5,6 л/100 км', label: 'Расход топлива¹' },
+      { value: '8 сек', label: 'Разгон 0-100 км/ч' },
+      { value: '180 мм', label: 'Дорожный просвет' }
+    ],
     exterior: {
       title: 'Экстерьер',
       description: 'Дизайн основан на плавных линиях кузова, выразительной светотехнике, современных акцентах. Облик сочетает эстетику и функциональность, что делает автомобиль заметным на дороге.',
@@ -236,6 +251,7 @@ export const modelsData: Record<string, ModelData> = {
     id: 'i-joy',
     name: 'i-JOY',
     title: 'Evolute i-JOY',
+    logo: '/ijoy-logo.svg',
     description: 'Стильный городской кроссовер с нулевым выбросом вредных веществ. Динамичный, просторный и технологичный — идеальный электромобиль для всей семьи и комфортных ежедневных поездок.',
     heroImage: '/ijoy-hero.jpg',
     stats: {
@@ -244,6 +260,14 @@ export const modelsData: Record<string, ModelData> = {
       acceleration: '8.9 сек',
       price: 'от 2 490 000 ₽'
     },
+    statsItems: [
+      { value: '424 км', label: 'Запас хода¹' },
+      { value: '218 л.с.', label: 'Мощность электродвигателя' },
+      { value: '310 Н·м', label: 'Крутящий момент' },
+      { value: '28 мин', label: 'Быстрая зарядка (30-80%)' },
+      { value: '8 сек', label: 'Разгон 0-100 км/ч' },
+      { value: '180 мм', label: 'Дорожный просвет' }
+    ],
     exterior: {
       title: 'Экстерьер',
       description: 'Новый кроссовер Evolute i-JOY сочетает в себе привлекательный внешний вид, продуманную аэродинамику и оптимальные пропорции. Современный силуэт подчеркивается выразительной оптикой и стильными деталями кузова.',
@@ -577,6 +601,7 @@ export const modelsData: Record<string, ModelData> = {
     id: 'i-sky',
     name: 'i-SKY',
     title: 'Evolute i-SKY',
+    logo: '/isky-logo.svg',
     description: 'Evolute i-SKY – электрокроссовер, который сочетает стиль, функциональность и передовые технологии. С этим автомобилем каждая поездка становится приятным и комфортным опытом. Если вы активны, молоды и цените современные технологии, то Evolute i-SKY - ваш выбор! Покупайте современный и вместительный кроссовер у официального дилера Прагматика на особо выгодных условиях.',
     heroImage: '/isky-hero.jpg',
     stats: {
@@ -585,6 +610,12 @@ export const modelsData: Record<string, ModelData> = {
       acceleration: '8.6 сек',
       price: 'от 2 355 000 ₽*'
     },
+    statsItems: [
+      { value: '424 км', label: 'Запас хода¹' },
+      { value: '218 л.с.', label: 'Мощность электродвигателя' },
+      { value: '310 Н·м', label: 'Крутящий момент' },
+      { value: '28 мин', label: 'Быстрая зарядка (30-80%)' }
+    ],
     exterior: {
       title: 'Экстерьер',
       description: 'Внешний вид Evolute i-SKY не оставит равнодушным никого. Этот электрокар привлекателен, свеж и гармоничен. Перечислим основные особенности в экстерьере:',
