@@ -102,10 +102,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             
             {/* Elements that appear only when scrolled */}
             <div className={`flex items-center transition-all duration-300 overflow-hidden ${
-              isScrolled ? 'w-32 opacity-100' : 'w-0 opacity-0'
+              isScrolled ? 'w-40 opacity-100' : 'w-0 opacity-0'
             }`}>
               <Link to="/">
-                <img src="/logo.svg" alt="EVOLUTE" className="h-5 w-auto object-contain" />
+                <img src="/logo.svg" alt="EVOLUTE" className="h-7 w-auto object-contain" />
               </Link>
             </div>
 
@@ -141,7 +141,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           }`}>
             <Link to="/">
               <img src="/logo.svg" alt="EVOLUTE" className={`transition-all duration-300 object-contain ${
-                isScrolled ? 'h-5' : 'h-6'
+                isScrolled ? 'h-7' : 'h-8'
               }`} />
             </Link>
             <button
@@ -236,9 +236,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-white font-bold mb-6 text-base">Модельный ряд</h4>
               <ul className="space-y-4 text-[13px] text-gray-400">
+                <li><Link to="/models/i-space" className="hover:text-evolute-blue transition-colors">Evolute i-SPACE</Link></li>
                 <li><Link to="/models/i-joy" className="hover:text-evolute-blue transition-colors">Evolute i-JOY</Link></li>
                 <li><Link to="/models/i-sky" className="hover:text-evolute-blue transition-colors">Evolute i-SKY</Link></li>
-                <li><Link to="/models/i-space" className="hover:text-evolute-blue transition-colors">Evolute i-SPACE</Link></li>
               </ul>
             </div>
             
