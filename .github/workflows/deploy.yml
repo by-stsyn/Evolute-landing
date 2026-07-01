@@ -3,7 +3,7 @@ name: Deploy to Reg.ru FTP
 on:
   push:
     branches:
-      - main # (если ветка master, то поменяй тут)
+      - main 
 
 jobs:
   build-and-deploy:
@@ -16,12 +16,10 @@ jobs:
     - name: 📦 Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '20' # Обновили версию Node.js на свежую
 
     - name: 🔨 Install Dependencies
-      run: |
-        rm -rf node_modules package-lock.json
-        npm install
+      run: npm install --no-package-lock # Жестко запрещаем читать виндовский кэш
 
     - name: 🏗️ Build Project
       run: npm run build
