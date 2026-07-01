@@ -19,7 +19,9 @@ jobs:
         node-version: '18'
 
     - name: 🔨 Install Dependencies
-      run: rm -f package-lock.json && npm install
+      run: |
+        rm -rf node_modules package-lock.json
+        npm install
 
     - name: 🏗️ Build Project
       run: npm run build
